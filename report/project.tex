@@ -3,8 +3,8 @@
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage{smartdiagram}
-
 \usepackage{url}
+\usepackage{xcolor}
 
 \aclfinalcopy
 
@@ -51,7 +51,7 @@ Being able to identify authorship of a document is beneficial for a wide range o
 
 \textbf{Training.}  \\
 
-\textbf{Evaluation.}  The most natural metric to evaluate the performance of a classification problem is accuracy, i.e. the rate of rightly classified instances. However, this metric is not suitable in the case of imbalanced classes, which is the case here since the number of paragraphs per book varies significantly. Since we have no reason \textit{a priori} to favor either precision or recall, we use the F1 metric, which formally corresponds to the harmonic mean of both metrics. Thus, a given predictor will produce a good score only if \emph{both} recall and precision are high enough. Finally, since we are dealing with a multiclass classification task, we have to decide an aggregation procedure to get a global metric. Here, we choose the micro-averaged F1 score, which consists in computing the F1 metric globally by counting the total numbers of true positives, false negatives and false positives. We also provide a more qualitative analysis of performance by looking at the confusion matrix.
+\textbf{Evaluation.}  Since we deal with imbalanced classes -- the number of paragraphs per book varies significantly -- we can't use accuracy as a relevant metric . Since we have no reason \textit{a priori} to favor either precision or recall, we use the F1 metric, which formally corresponds to the harmonic mean of both metrics. Thus, a given predictor will produce a good score only if \emph{both} recall and precision are high enough. Finally, since we are dealing with a multiclass classification task, we have to decide an aggregation procedure to get a global metric. Here, we choose the micro-averaged F1 score, which consists in computing the F1 metric globally by counting the total numbers of true positives, false negatives and false positives. We also provide a more qualitative analysis of performance by looking at the confusion matrix.
 
 \section{Results}
 
