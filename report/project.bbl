@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{joulin2016bag}
+Armand Joulin, Edouard Grave, Piotr Bojanowski, and Tomas Mikolov.
+\newblock Bag of tricks for efficient text classification.
+\newblock {\em arXiv preprint arXiv:1607.01759}, 2016.
+
+\bibitem{le2014distributed}
+Quoc Le and Tomas Mikolov.
+\newblock Distributed representations of sentences and documents.
+\newblock In {\em International conference on machine learning}, pages
+  1188--1196, 2014.
+
+\bibitem{martin2019camembert}
+Louis Martin, Benjamin Muller, Pedro Javier~Ortiz Su{\'a}rez, Yoann Dupont,
+  Laurent Romary, {\'E}ric~Villemonte de~la Clergerie, Djam{\'e} Seddah, and
+  Beno{\^\i}t Sagot.
+\newblock Camembert: a tasty french language model.
+\newblock {\em arXiv preprint arXiv:1911.03894}, 2019.
+
+\end{thebibliography}
