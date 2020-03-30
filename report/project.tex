@@ -5,6 +5,7 @@
 \usepackage{smartdiagram}
 \usepackage{url}
 \usepackage{xcolor}
+\usepackage{color}
 
 
 \aclfinalcopy
@@ -57,7 +58,7 @@ Both the NLP and the classification models are fine-tuned using grid search on a
 
 Performance comparison of the different models is presented in table~\ref{compar}. All the steps needed to reproduce these results are presented in a Colab notebook\footnote{\url{A_REMPLIR}}. 
 
-First, we observe that the TF-IDF approach is, as often, a very strong baseline (F1 = 0.52). Since we deal with 10 classes, a random classifier would generate a F1 score of 0.1. Thus, TF-IDF results appear quite satisfactory for such a simple approach.  However, we notice that it tends to greatly overfit the training set (F1 = 0.9), likely because of the presence of peculiar character and place names which makes separation too easy on the training set. Against that background, we use Named Entity Recognition to detect and remove these elements. RESULTATS.
+First, we observe that the TF-IDF approach is, as often, a very strong baseline (F1 = 0.52). Since we deal with 10 classes, a random classifier would generate a F1 score of 0.1. Thus, TF-IDF results appear quite satisfactory for such a simple approach.  However, we notice that it tends to greatly overfit the training set (F1 = 0.9), likely because of the presence of peculiar character and place names which makes separation too easy on the training set. \textcolor{red}{To support this intuition, we analyze the TF-IDF weights for the well-classified paragraphs of the training set for each author, and find some character and place names in the top weights.} Against that background, we use Named Entity Recognition to detect and remove these elements. \textcolor{red}{The F1 score on the training set is lower after removing the named entities (F1 = 0.82) but still high. Interestingly, we find that the score on the validation set decreased (F1 = 0.42). The named entities seem to be relevant to identify authorship, since some characters and places can appear in multiple books. We thus decide to keep the proper nouns in the models.}
 
 Second, we observe important heterogeneity between the approaches based on continuous word representations. The FastText model performs the worst (F1 = 0.35), likely because it fails to take into account any context information due to the naive averaging procedure. The Doc2Vec model produces better results (F1 = 0.39), but still performs relatively poorly. On the contrary, the CamemBERT model exhibits much better performance (F1 = 0.52), but doesn't beat the TF-IDF baseline.
 
@@ -78,6 +79,9 @@ FastText      & 0.35                  \\ \hline
 \end{center}
 \end{table}
 
+\textcolor{red}{Finally, we notice a strong heterogeneity between authors through the analysis of the confusion matrix, displayed in figure~\ref{conf_matrix}. CamemBERT well classified 15.6\% of Zola's paragraphs, whereas it well classified 87.2\% of Dumas's paragraphs. The results between the two authors are reversed when it comes to precision, and the gap is reduced: 91.8\% for Zola, and 78.7\% for Dumas. Dumas or Flaubert seem to be more easily identified than Daudet or Vigny. Some authors may have a more singular writing style than others, or simply reuse character and place names in several books.}
+
+
 \section{Discussion}
 
 Our results show that it is possible, to a certain extent, to perform authorship identification of French 19th century novelists using NLP algorithms. However, we find that the performances of complicated deep learning approaches only come close  to those of a simple TF-IDF model with linear classification, which is disappointing. However, our study has important limitations. In particular, due to the high computational cost of fine-tuning the CamemBERT model, we had to set a maximum number of tokens per paragraph of 100, and we couldn't properly tune the learning rate. Without these limitations, it is likely that this approach would have produced more satisfactory results.
@@ -97,6 +101,18 @@ Thus, future works could be devoted to properly tune the various hyperparameters
 
 \bibliographystyle{plain}
 \bibliography{biblio}
+
+
+\section*{Appendix}
+
+\begin{table}[h]
+\caption{Confusion matrix with CamemBERT}
+\label{conf_matrix}
+\begin{center}
+
+\end{center}
+\end{table}
+
 
 
 \end{document}
