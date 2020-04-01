@@ -56,11 +56,11 @@ Both the NLP and the classification models are fine-tuned using grid search on a
 
 \section{Results}
 
-Performance comparison of the different models is presented in table~\ref{compar}. All the steps needed to reproduce these results are presented in a Colab notebook\footnote{\url{A_REMPLIR}}. 
+Performance comparison of the different models is presented in table~\ref{compar}. All the steps needed to reproduce these results are presented in a Colab notebook\footnote{\url{https://colab.research.google.com/drive/18Hj2zI-dL2YjCyW4vqPSkLYzNLRmk3wD}}. 
 
-First, we observe that the TF-IDF approach is, as often, a very strong baseline (F1 = 0.52). Since we deal with 10 classes, a random classifier would generate a F1 score of 0.1. Thus, TF-IDF results appear quite satisfactory for such a simple approach.  However, we notice that it tends to greatly overfit the training set (F1 = 0.9), likely because of the presence of peculiar character and place names which makes separation too easy on the training set. To support this intuition, we analyze the TF-IDF weights for the well-classified paragraphs of the training set for each author, and indeed find some character and place names in the top weights. We thus use Named Entity Recognition to detect and remove these elements. The F1 score on the training set is lower after removing the named entities (F1 = 0.82), but still high. Interestingly, we find that the score on the validation set decreases (F1 = 0.42). The named entities seem to be relevant to identify authorship, since some characters and places can appear in multiple books. We thus decide to keep the proper nouns in the models.
+First, we observe that the TF-IDF approach is, as often, a strong baseline (F1 = 0.44). Since we deal with 10 classes, a random classifier would generate a F1 score of 0.1. Thus, TF-IDF results appear quite satisfactory for such a simple approach.  However, we notice that it tends to greatly overfit the training set (F1 = 0.9), likely because of the presence of peculiar character and place names which makes separation too easy on the training set. To support this intuition, we analyze the TF-IDF weights for the well-classified paragraphs of the training set for each author, and indeed find some character and place names in the top weights. We use Named Entity Recognition to detect and remove these elements. The F1 score on the training set is lower after removing the named entities (F1 = 0.82), but still high. Surprisingly, we find that the score on the validation set decreases (F1 = 0.42). The named entities seem to be relevant to identify authorship, since some characters and places can appear in multiple books. We thus decide to keep the proper nouns in the models.
 
-Second, we observe important heterogeneity between the approaches based on continuous word representations. The FastText model performs the worst (F1 = 0.35), likely because it fails to take into account any context information due to the naive averaging procedure. The Doc2Vec model produces better results (F1 = 0.39), but still performs relatively poorly. On the contrary, the CamemBERT model exhibits much better performance (F1 = 0.52), but doesn't beat the TF-IDF baseline.
+Second, we observe important heterogeneity between the approaches based on continuous word representations. The FastText model performs the worst (F1 = 0.35), likely because it fails to take into account any context information due to the naive averaging procedure. The Doc2Vec model produces better results (F1 = 0.39), but still performs relatively poorly. On the contrary, the CamemBERT model exhibits much better performance (F1 = 0.5) and turns out to be the only approach which beats the TF-IDF baseline.
 
 
 
@@ -71,8 +71,8 @@ Second, we observe important heterogeneity between the approaches based on conti
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Model} & \textbf{F1 score} \\ \hline
-TF-IDF         & 0.52              \\ \hline
-CamemBERT       & 0.52                  \\ \hline
+CamemBERT       & 0.5                  \\ \hline
+TF-IDF         & 0.44              \\ \hline
 Doc2Vec        & 0.39                  \\ \hline
 FastText      & 0.35                  \\ \hline
 \end{tabular}
@@ -102,21 +102,16 @@ An idea for future works could be to use the tools of \textit{stylometry}\footno
 \bibliographystyle{plain}
 \bibliography{biblio}
 
+\bigskip
 
 \section*{Appendix}
 
-\begin{figure*}[]
-\includegraphics{test.png}
-\end{figure*}
-
-
-\begin{table}[h]
-\caption{Confusion matrix with CamemBERT}
+\begin{figure}[h]
+\caption{Confusion matrix}
 \label{conf_matrix}
-\begin{center}
+\includegraphics[scale=0.5]{figures/confusion.png}
+\end{figure}
 
-\end{center}
-\end{table}
 
 
 
